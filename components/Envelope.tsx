@@ -99,6 +99,8 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
   const root = useRef<HTMLDivElement>(null);
   const env = useRef<HTMLDivElement>(null);
   const flap = useRef<HTMLDivElement>(null);
+  const flapFront = useRef<SVGSVGElement>(null);
+  const flapBack = useRef<SVGSVGElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const cardContent = useRef<HTMLDivElement>(null);
   const sealL = useRef<HTMLDivElement>(null);
@@ -132,9 +134,17 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
     animate(sealL.current!, { x: -34, y: 70, rotate: -24, opacity: [1, 1, 0] }, { duration: 0.8, ease: "easeIn" });
     await animate(sealR.current!, { x: 34, y: 78, rotate: 20, opacity: [1, 1, 0] }, { duration: 0.8, ease: "easeIn" });
 
-    await animate(flap.current, { rotateX: -90 }, { duration: 0.45, ease: "easeIn" });
+    const front = flapFront.current!, back = flapBack.current!;
+    const swing = (v: number) => {
+      const c = Math.cos((v * Math.PI) / 180);
+      front.style.visibility = v < 90 ? "visible" : "hidden";
+      back.style.visibility = v > 90 ? "visible" : "hidden";
+      front.style.transform = `scaleY(${Math.max(c, 0)})`;
+      back.style.transform = `scaleY(${Math.min(c, 0)})`;
+    };
+    await animate(0, 90, { duration: 0.45, ease: "easeIn", onUpdate: swing });
     flap.current.style.zIndex = "1";
-    await animate(flap.current, { rotateX: -180 }, { duration: 0.5, ease: "easeOut" });
+    await animate(90, 180, { duration: 0.5, ease: "easeOut", onUpdate: swing });
 
     const rise = env.current.getBoundingClientRect().height * 0.64;
     await animate(card.current, { y: -rise, rotate: [0, -1.2, 0] }, { duration: 1, ease: [0.22, 0.8, 0.3, 1] });
@@ -224,15 +234,15 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
 
             <div
               ref={flap}
-              className="absolute inset-x-0 top-0 h-[58%] [transform-origin:top] [transform-style:preserve-3d]"
+              className="absolute inset-x-0 top-0 h-[58%] "
               style={{ zIndex: 4 }}
             >
               <svg
                 data-shell
                 viewBox="0 0 600 232"
                 preserveAspectRatio="none"
-                className="absolute inset-0 size-full overflow-visible [backface-visibility:hidden]"
-                style={{ WebkitBackfaceVisibility: "hidden" }}
+                ref={flapFront}
+                className="absolute inset-0 size-full origin-top overflow-visible"
                 aria-hidden
               >
                 <g filter="url(#shadowDown)">
@@ -246,8 +256,9 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
                 data-shell
                 viewBox="0 0 600 232"
                 preserveAspectRatio="none"
-                className="absolute inset-0 size-full overflow-visible [backface-visibility:hidden] [transform:rotateY(180deg)]"
-                style={{ WebkitBackfaceVisibility: "hidden" }}
+                ref={flapBack}
+                className="absolute inset-0 size-full origin-top overflow-visible"
+                style={{ visibility: "hidden", transform: "scaleY(0)" }}
                 aria-hidden
               >
                 <polygon points="0,0 600,0 300,232" fill="url(#gBack)" />
