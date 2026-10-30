@@ -154,7 +154,8 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
     const vw = window.innerWidth, vh = window.innerHeight;
     const scale = Math.max(vw / r.width, vh / r.height) * 1.04;
     animate("[data-shell]", { opacity: 0 }, { duration: 0.7 });
-    animate(cardContent.current!, { opacity: 0 }, { duration: 0.6 });
+    animate(cardContent.current!, { opacity: 0 }, { duration: 0.3 });
+    animate("[data-grain]", { opacity: 0 }, { duration: 0.3 });
     await animate(
       card.current,
       { x: vw / 2 - (r.left + r.width / 2), y: -rise + vh / 2 - (r.top + r.height / 2), scale },
@@ -201,7 +202,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
             </svg>
 
             <div ref={card} className="absolute inset-x-[5%] inset-y-[4%] z-[2] overflow-hidden rounded-[2px] bg-[#FBF8F0] shadow-[0_2px_10px_rgba(40,20,20,0.3)]">
-              <svg className="absolute inset-0 size-full" aria-hidden>
+              <svg data-grain className="absolute inset-0 size-full" aria-hidden>
                 <rect width="100%" height="100%" filter="url(#grain)" fill="#000" opacity="0.55" />
               </svg>
               <div ref={cardContent} className="absolute inset-0">
