@@ -87,7 +87,7 @@ function Seal({ half }: { half?: "l" | "r" }) {
       <image
         href={sello.src}
         x="17" y="17" width="66" height="66"
-        style={{ filter: "drop-shadow(0.8px 1px 0 rgba(233,174,185,0.45)) drop-shadow(-0.4px -0.5px 0 rgba(20,5,10,0.5))", opacity: 0.9 }}
+        style={{ opacity: 0.95 }}
       />
     </svg>
   );
