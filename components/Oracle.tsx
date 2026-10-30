@@ -175,8 +175,31 @@ export default function Oracle() {
     if (fade.current) clearInterval(fade.current);
   }, []);
 
+  const kebab = useRef<HTMLAudioElement>(null);
+  const isKebab = !closing && !spinning && !!text && text.toLowerCase().includes("kebab");
+
+  useEffect(() => {
+    const k = kebab.current;
+    if (!k) return;
+    if (isKebab) {
+      k.currentTime = 0;
+      k.volume = 0.9;
+      void k.play().catch(() => {});
+      if (song.current) song.current.volume = 0;
+    } else {
+      k.pause();
+      if (open && !closing && song.current && !song.current.paused) fadeTo(0.8, 1200);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isKebab]);
+
   const spin = () => {
     if (spinning) return;
+    const k = kebab.current;
+    if (k && k.paused) {
+      k.muted = true;
+      void k.play().then(() => { k.pause(); k.muted = false; }).catch(() => { k.muted = false; });
+    }
     const count = o.predictions.length;
     if (bag.current.length === 0) {
       bag.current = shuffled(count);
@@ -201,6 +224,7 @@ export default function Oracle() {
   return (
     <>
       <audio ref={song} src={`${BASE}/santuario.mp3`} loop preload="none" />
+      <audio ref={kebab} src={`${BASE}/avengers.mp3`} preload="none" />
       <button
         type="button"
         onClick={start}
@@ -271,6 +295,10 @@ export default function Oracle() {
                       <span style={{ animation: "six-seven .5s ease-in-out infinite alternate" }}>🫴</span>
                       <span style={{ animation: "six-seven .5s ease-in-out infinite alternate-reverse" }}>🫴</span>
                     </div>
+                  )}
+                  {text.toLowerCase().includes("kebab") && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={`${BASE}/kebab.jpg`} alt="" className="h-56 w-auto rounded-2xl border border-champan/50" />
                   )}
                   {text.includes("👰") && (
                     // eslint-disable-next-line @next/next/no-img-element
