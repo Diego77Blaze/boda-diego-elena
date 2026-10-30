@@ -209,10 +209,10 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
 
                 <div className="relative flex size-full flex-col items-center justify-center text-center">
                   <p className="font-display text-[1rem] leading-none text-oliva sm:text-[1.3rem]">nos casamos</p>
-                  <p className="mt-0.5 font-display text-[1.8rem] leading-none text-bosque sm:text-[2.6rem]">
+                  <p className="mt-0.5 font-display text-[1.8rem] leading-[1.15] text-bosque sm:text-[2.6rem]">
                     Diego <span className="text-burdeos">&amp;</span> Elena
                   </p>
-                  <p className="mt-1 font-display text-[0.9rem] leading-none text-burdeos sm:text-[1.2rem]">31.07.2027 · Toledo</p>
+                  <p className="mt-2 font-display text-[0.9rem] leading-none text-burdeos sm:text-[1.2rem]">31.07.2027 · Toledo</p>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`${BASE}/toledo.webp`} alt="" className="mt-1 w-[44%]" draggable={false} />
                 </div>
