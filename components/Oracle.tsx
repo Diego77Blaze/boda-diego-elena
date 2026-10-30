@@ -265,13 +265,20 @@ export default function Oracle() {
             <div className="mt-5 flex min-h-[8rem] w-full max-w-sm items-center justify-center" aria-live="polite">
               {spinning && <p className="font-display text-2xl text-champan/90">{o.thinking}</p>}
               {!spinning && text && (
-                <p
-                  key={n}
-                  className="rounded-2xl border border-champan/50 bg-white/5 px-5 py-4 font-display text-2xl leading-snug text-[#fff4d1]"
-                  style={{ animation: "oracle-in .7s ease-out both" }}
-                >
-                  {text}
-                </p>
+                <div key={n} className="flex flex-col items-center gap-3">
+                  {text.includes("67") && (
+                    <div aria-hidden className="flex gap-6 text-6xl">
+                      <span style={{ animation: "six-seven .5s ease-in-out infinite alternate" }}>🫴</span>
+                      <span style={{ animation: "six-seven .5s ease-in-out infinite alternate-reverse" }}>🫴</span>
+                    </div>
+                  )}
+                  <p
+                    className="rounded-2xl border border-champan/50 bg-white/5 px-5 py-4 font-display text-2xl leading-snug text-[#fff4d1]"
+                    style={{ animation: "oracle-in .7s ease-out both" }}
+                  >
+                    {text}
+                  </p>
+                </div>
               )}
             </div>
 
