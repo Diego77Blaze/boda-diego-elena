@@ -272,6 +272,10 @@ export default function Oracle() {
                       <span style={{ animation: "six-seven .5s ease-in-out infinite alternate-reverse" }}>🫴</span>
                     </div>
                   )}
+                  {text.includes("👰") && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={`${BASE}/novia.gif`} alt="" className="h-36 w-36 rounded-2xl border border-champan/50 object-cover" />
+                  )}
                   <p
                     className="rounded-2xl border border-champan/50 bg-white/5 px-5 py-4 font-display text-2xl leading-snug text-[#fff4d1]"
                     style={{ animation: "oracle-in .7s ease-out both" }}
