@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import WhiteMachine from "@/components/WhiteMachine";
 import { useLang } from "@/lib/i18n";
 import { ALERGENOS, cancionValida, enviarRsvp, rsvpConfigurado, type Alergeno, type Menu } from "@/lib/rsvp";
 
@@ -140,6 +141,8 @@ export default function RsvpForm() {
   const [yo, setYo] = useState<Guest>(() => newGuest(false));
   const [others, setOthers] = useState<Guest[]>([]);
   const [blanco, setBlanco] = useState<boolean | null>(null);
+  const [machineKey, setMachineKey] = useState(0);
+  const insist = useCallback(() => setBlanco(true), []);
   const [cancion, setCancion] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [consent, setConsent] = useState(false);
@@ -287,8 +290,10 @@ export default function RsvpForm() {
                 <div>
                   <span className={label}>{t.rsvp.white}</span>
                   <div className="flex flex-wrap gap-3">
-                    <Choice on={blanco === true} onClick={() => setBlanco(true)}>{t.rsvp.whiteYes}</Choice>
-                    <Choice on={blanco === false} onClick={() => setBlanco(false)}>{t.rsvp.whiteNo}</Choice>
+                    <Choice on={blanco === false} onClick={() => { setBlanco(false); setMachineKey((k) => k + 1); }}>{t.rsvp.whiteNo}</Choice>
+                  </div>
+                  <div className="mt-3">
+                    <WhiteMachine key={machineKey} onInsist={insist} />
                   </div>
                   {blanco === true && (
                     <p role="status" className="mt-3 rounded-xl bg-burdeos/10 px-4 py-3 font-display text-xl text-burdeos">{t.rsvp.whiteJoke}</p>
