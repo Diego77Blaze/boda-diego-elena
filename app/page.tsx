@@ -13,6 +13,7 @@ import anillos from "@/assets/anillos.webp";
 import patronOro from "@/assets/patron-oro.webp";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const WEDDING = Date.parse("2027-07-31T18:30:00+02:00");
 const SEEN_KEY = "boda-sobre-visto";
 
 export default function Page() {
@@ -45,6 +46,13 @@ export default function Page() {
   };
 
   const [party, setParty] = useState(false);
+  const [after, setAfter] = useState(false);
+  useEffect(() => {
+    const check = () => setAfter(Date.now() >= WEDDING);
+    check();
+    const id = setInterval(check, 30000);
+    return () => clearInterval(id);
+  }, []);
   const taps = useRef({ n: 0, last: 0 });
   const song = useRef<HTMLAudioElement>(null);
   const tapHeart = () => {
@@ -161,7 +169,7 @@ export default function Page() {
           </button>
         </footer>
       </main>
-      <PartyMode active={party} />
+      <PartyMode active={party || (after && revealed)} />
       <audio ref={song} src={`${BASE}/cancion.mp3`} preload="none" onEnded={() => setParty(false)} />
     </>
   );
