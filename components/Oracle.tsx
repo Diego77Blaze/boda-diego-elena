@@ -33,9 +33,15 @@ const pt = (deg: number, r: number) => {
   return `${(150 + r * Math.sin(a)).toFixed(2)} ${(150 - r * Math.cos(a)).toFixed(2)}`;
 };
 
-function Wheel({ rotation, spinning }: { rotation: number; spinning: boolean }) {
+function Wheel({ rotation, spinning, onSpin, label }: { rotation: number; spinning: boolean; onSpin: () => void; label: string }) {
   return (
-    <div className="relative mx-auto h-72 w-72 max-w-full">
+    <button
+      type="button"
+      onClick={onSpin}
+      disabled={spinning}
+      aria-label={label}
+      className="relative mx-auto block h-72 w-72 max-w-full cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-champan focus-visible:ring-offset-4 focus-visible:ring-offset-[#0a0b24] disabled:cursor-default"
+    >
       <svg viewBox="0 0 300 300" className="absolute inset-0 h-full w-full overflow-visible drop-shadow-[0_0_18px_rgba(199,173,133,0.35)]" aria-hidden>
         <g
           style={{
@@ -71,7 +77,7 @@ function Wheel({ rotation, spinning }: { rotation: number; spinning: boolean }) 
         <circle cx="150" cy="150" r="6" fill="#C7AD85" />
         <path d="M150 22 L138 -2 L162 -2 Z" fill="#C7AD85" stroke="#0a0b24" strokeWidth="2" />
       </svg>
-    </div>
+    </button>
   );
 }
 
@@ -253,7 +259,7 @@ export default function Oracle() {
             <p className="mt-7 max-w-xs text-base text-[#f3eddc]/80">{o.intro}</p>
 
             <div className="mt-6">
-              <Wheel rotation={rotation} spinning={spinning} />
+              <Wheel rotation={rotation} spinning={spinning} onSpin={spin} label={o.button} />
             </div>
 
             <div className="mt-5 flex min-h-[8rem] w-full max-w-sm items-center justify-center" aria-live="polite">
