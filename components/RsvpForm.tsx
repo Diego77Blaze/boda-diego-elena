@@ -70,7 +70,7 @@ function GuestCard({
       </legend>
 
       {!isYou && (
-        <div className="grid gap-3 sm:grid-cols-[1fr_8rem]">
+        <div className="grid grid-cols-[minmax(0,1fr)_5.5rem] gap-3">
           <div>
             <label className={label} htmlFor={`n-${g.id}`}>{t.rsvp.guestName}</label>
             <input id={`n-${g.id}`} className={input} value={g.nombre} maxLength={100} onChange={(e) => onChange({ nombre: e.target.value })} />

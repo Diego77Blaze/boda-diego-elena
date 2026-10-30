@@ -12,7 +12,6 @@ import RsvpForm from "@/components/RsvpForm";
 import { useLang } from "@/lib/i18n";
 import pareja from "@/assets/pareja.webp";
 import anillos from "@/assets/anillos.webp";
-import patronOro from "@/assets/patron-oro.webp";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const WEDDING = Date.parse("2027-07-31T18:30:00+02:00");
@@ -145,7 +144,6 @@ export default function Page() {
         </section>
 
         <section id="evento" className="relative bg-bosque px-6 py-24 text-marfil">
-          <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.28]" style={{ backgroundImage: `url(${patronOro.src})`, backgroundSize: "400px auto" }} />
           <div className="relative mx-auto max-w-3xl text-center">
             <h2 className="font-display text-5xl sm:text-6xl">{t.event.title}</h2>
             <EventMap />
