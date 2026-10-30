@@ -90,6 +90,8 @@ export default function Oracle() {
   const [spinning, setSpinning] = useState(false);
   const [rotation, setRotation] = useState(0);
   const [n, setN] = useState(0);
+  const [debug, setDebug] = useState(false);
+  const [idx, setIdx] = useState(-1);
   const last = useRef(-1);
   const bag = useRef<number[]>([]);
   const song = useRef<HTMLAudioElement>(null);
@@ -140,6 +142,7 @@ export default function Oracle() {
       a.currentTime = 0;
       void a.play().then(() => fadeTo(0.8, 3000)).catch(() => {});
     }
+    setDebug(new URLSearchParams(location.search).has("oraculo"));
     setOpen(true);
   };
 
@@ -201,7 +204,7 @@ export default function Oracle() {
     if (!s) return;
     let stop: ReturnType<typeof setTimeout> | undefined;
     if (isShin) {
-      s.currentTime = 2;
+      s.currentTime = 2.25;
       s.volume = 1;
       void s.play().catch(() => {});
       if (song.current) song.current.volume = 0.15;
@@ -216,6 +219,15 @@ export default function Oracle() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShin]);
+
+  const showAt = (i: number) => {
+    if (spinning) return;
+    const count = o.predictions.length;
+    const k = ((i % count) + count) % count;
+    setIdx(k);
+    setText(o.predictions[k]);
+    setN((x) => x + 1);
+  };
 
   const spin = () => {
     if (spinning) return;
@@ -277,6 +289,13 @@ export default function Oracle() {
             animation: closing ? "night-out 1s ease-in forwards" : "night-in 3s ease-in forwards",
           }}
         >
+          {debug && (
+            <div className="fixed left-3 top-3 z-10 flex items-center gap-2 rounded-full border border-champan/60 bg-black/60 px-3 py-1 font-sans text-sm text-champan">
+              <button type="button" onClick={() => showAt(idx - 1)} className="px-2" aria-label="Anterior">◀</button>
+              <span>{idx < 0 ? "–" : idx + 1}/{o.predictions.length}</span>
+              <button type="button" onClick={() => showAt(idx + 1)} className="px-2" aria-label="Siguiente">▶</button>
+            </div>
+          )}
           <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
             {stars.map((s, i) => (
               <span
