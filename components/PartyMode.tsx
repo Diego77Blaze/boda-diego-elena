@@ -3,11 +3,10 @@
 import { useEffect, useRef } from "react";
 
 const COLORS = ["#C7AD85", "#702D3C", "#777D56", "#354A3C", "#E8D9B8", "#B5566B"];
-const DURATION = 12000;
 
 type Piece = { x: number; y: number; w: number; h: number; vx: number; vy: number; r: number; vr: number; c: string; round: boolean };
 
-export default function PartyMode({ active, onEnd }: { active: boolean; onEnd: () => void }) {
+export default function PartyMode({ active }: { active: boolean }) {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -37,20 +36,16 @@ export default function PartyMode({ active, onEnd }: { active: boolean; onEnd: (
     });
 
     const pieces: Piece[] = Array.from({ length: 140 }, () => make(true));
-    const start = performance.now();
     let raf = 0;
-    const tick = (now: number) => {
-      const t = now - start;
+    const tick = () => {
       ctx.clearRect(0, 0, innerWidth, innerHeight);
-      const spawning = t < DURATION - 3000;
       for (let i = pieces.length - 1; i >= 0; i--) {
         const p = pieces[i];
         p.x += p.vx + Math.sin(p.y / 40) * 0.6;
         p.y += p.vy;
         p.r += p.vr;
         if (p.y > innerHeight + 20) {
-          if (spawning) Object.assign(p, make(false));
-          else pieces.splice(i, 1);
+          Object.assign(p, make(false));
           continue;
         }
         ctx.save();
@@ -66,8 +61,7 @@ export default function PartyMode({ active, onEnd }: { active: boolean; onEnd: (
         }
         ctx.restore();
       }
-      if (pieces.length) raf = requestAnimationFrame(tick);
-      else onEnd();
+      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
 
@@ -76,15 +70,15 @@ export default function PartyMode({ active, onEnd }: { active: boolean; onEnd: (
       removeEventListener("resize", resize);
       ctx.clearRect(0, 0, innerWidth, innerHeight);
     };
-  }, [active, onEnd]);
+  }, [active]);
 
   return (
     <>
       <canvas ref={canvas} aria-hidden className={`pointer-events-none fixed inset-0 z-[60] h-full w-full ${active ? "" : "hidden"}`} />
-      <div role="status" aria-live="polite" className="sr-only">{active ? "¡Modo fiesta activado!" : ""}</div>
+      <div role="status" aria-live="polite" className="sr-only">{active ? "¡Vivan los novios!" : ""}</div>
       {active && (
-        <div aria-hidden className="pointer-events-none fixed inset-x-0 top-1/3 z-[61] text-center font-display text-5xl text-burdeos [text-shadow:0_2px_0_#F7F3EA,0_0_18px_#F7F3EA] animate-[party-pop_2.6s_ease-out_forwards] sm:text-7xl">
-          ¡Fiesta!
+        <div aria-hidden className="pointer-events-none fixed inset-x-0 top-1/3 z-[61] px-6 text-center font-display text-4xl text-burdeos [text-shadow:0_2px_0_#F7F3EA,0_0_18px_#F7F3EA] animate-[party-pop_4s_ease-out_forwards] sm:text-6xl">
+          ¡Vivan los novios!
         </div>
       )}
     </>

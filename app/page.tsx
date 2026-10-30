@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PartyMode from "@/components/PartyMode";
 import { motion, useReducedMotion } from "motion/react";
 import Envelope from "@/components/Envelope";
@@ -8,11 +8,11 @@ import Countdown from "@/components/Countdown";
 import ToledoDraw, { type ToledoHandle } from "@/components/ToledoDraw";
 import { RibbonFrame } from "@/components/Ribbon";
 import EventMap from "@/components/EventMap";
-const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 import pareja from "@/assets/pareja.webp";
 import anillos from "@/assets/anillos.webp";
 import patronOro from "@/assets/patron-oro.webp";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const SEEN_KEY = "boda-sobre-visto";
 
 export default function Page() {
@@ -46,7 +46,7 @@ export default function Page() {
 
   const [party, setParty] = useState(false);
   const taps = useRef({ n: 0, last: 0 });
-  const endParty = useCallback(() => setParty(false), []);
+  const song = useRef<HTMLAudioElement>(null);
   const tapHeart = () => {
     const now = Date.now();
     const t = taps.current;
@@ -54,8 +54,17 @@ export default function Page() {
     t.last = now;
     if (t.n >= 3) {
       t.n = 0;
-      setParty(false);
-      requestAnimationFrame(() => setParty(true));
+      const a = song.current;
+      if (party) {
+        a?.pause();
+        setParty(false);
+      } else {
+        if (a) {
+          a.currentTime = 0;
+          a.play().catch(() => {});
+        }
+        setParty(true);
+      }
     }
   };
 
@@ -152,7 +161,8 @@ export default function Page() {
           </button>
         </footer>
       </main>
-      <PartyMode active={party} onEnd={endParty} />
+      <PartyMode active={party} />
+      <audio ref={song} src={`${BASE}/cancion.mp3`} preload="none" onEnded={() => setParty(false)} />
     </>
   );
 }
