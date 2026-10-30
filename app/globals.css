@@ -40,3 +40,22 @@ body {
   80% { opacity: 1; }
   100% { opacity: 0; transform: scale(1.05); }
 }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
+}
+
+@keyframes oracle-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes eye-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(199, 173, 133, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(199, 173, 133, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twinkle, .eye-glow { animation: none !important; }
+}

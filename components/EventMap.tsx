@@ -12,7 +12,7 @@ const PLACES = [
   },
   {
     id: "celebracion",
-    name: "Cigarral de las Mercedes",
+    name: "El Cigarral de las Mercedes",
     address: "Carretera de Piedrabuena, 72, Toledo",
     query: "Cigarral de las Mercedes, Carretera de Piedrabuena 72, Toledo",
   },

@@ -7,6 +7,7 @@ import Envelope from "@/components/Envelope";
 import Countdown from "@/components/Countdown";
 import ToledoDraw, { type ToledoHandle } from "@/components/ToledoDraw";
 import ToledoSecrets from "@/components/ToledoSecrets";
+import Oracle from "@/components/Oracle";
 import { RibbonFrame } from "@/components/Ribbon";
 import EventMap from "@/components/EventMap";
 import RsvpForm from "@/components/RsvpForm";
@@ -157,6 +158,7 @@ export default function Page() {
         <RsvpForm />
 
         <footer className="bg-marfil px-6 pb-10 pt-14 text-center">
+          <Oracle />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={pareja.src}

@@ -5,6 +5,31 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 export type Lang = "es" | "en";
 
 const es = {
+  oracle: {
+    open: "Consulta tu futuro en la boda",
+    title: "Consulta tu futuro en la boda",
+    intro: "Los astros ya tienen opinión sobre ti.",
+    button: "Consultar los astros",
+    again: "Otra predicción",
+    thinking: "Los astros están deliberando…",
+    close: "Cerrar",
+    predictions: [
+      "Prometerás que solo te comes una croqueta. No cumplirás.",
+      "Bailarás «Accidentalmente enamorados» como si te fuera la vida en ello. Y te irá bien.",
+      "Llorarás en la ceremonia. Dirás que se te ha metido una pestaña. Nadie te creerá.",
+      "Dirás «me quedo solo un ratito» y verás amanecer.",
+      "Alguien te pedirá una foto de grupo. Serán catorce fotos.",
+      "Tu móvil se quedará sin batería justo antes del baile del ramo.",
+      "Descubrirás que bailas mejor de lo que pensabas. Spoiler: no.",
+      "Brindarás con alguien a quien no conoces. Al final de la noche, mejores amigos.",
+      "Una abuela te dará un consejo que te cambiará el resto de la semana.",
+      "Te dará un ataque de risa en el peor momento posible. Será el mejor momento.",
+      "Un camarero te traerá el plato justo cuando acabes de decir que no tienes hambre.",
+      "Te sentarán justo al lado de la persona con la que querías hablar. O no. Sorpresa.",
+      "Encontrarás la pista de baile a las 23:47 y ya no la soltarás.",
+      "Harás una foto perfecta… con el dedo tapando media lente.",
+    ],
+  },
   secrets: {
     hint: (n: number) => `Toledo guarda 3 secretos… toca los monumentos (${n}/3)`,
     found: "Símbolo encontrado",
@@ -124,6 +149,31 @@ const es = {
 type Dict = typeof es;
 
 const en: Dict = {
+  oracle: {
+    open: "See your wedding fortune",
+    title: "See your wedding fortune",
+    intro: "The stars already have an opinion about you.",
+    button: "Consult the stars",
+    again: "Another prediction",
+    thinking: "The stars are deliberating…",
+    close: "Close",
+    predictions: [
+      "You'll promise to eat just one croquette. You won't.",
+      "You'll dance to “Accidentalmente enamorados” like your life depends on it. And it'll go well.",
+      "You'll cry during the ceremony. You'll say an eyelash got in your eye. Nobody will believe you.",
+      "You'll say “I'll just stay a little while” and see the sunrise.",
+      "Someone will ask you to take a group photo. It will be fourteen photos.",
+      "Your phone will die right before the bouquet toss.",
+      "You'll discover you dance better than you thought. Spoiler: you don't.",
+      "You'll toast with someone you don't know. By the end of the night, best friends.",
+      "A grandma will give you advice that changes the rest of your week.",
+      "You'll get a fit of laughter at the worst possible moment. It will be the best moment.",
+      "A waiter will bring your plate right after you said you weren't hungry.",
+      "You'll be seated right next to the person you wanted to talk to. Or not. Surprise.",
+      "You'll find the dance floor at 11:47 pm and never leave it.",
+      "You'll take a perfect photo… with your finger covering half the lens.",
+    ],
+  },
   secrets: {
     hint: (n: number) => `Toledo hides 3 secrets… tap the landmarks (${n}/3)`,
     found: "Symbol found",
