@@ -10,6 +10,7 @@ import EventMap from "@/components/EventMap";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 import pareja from "@/assets/pareja.webp";
 import anillos from "@/assets/anillos.webp";
+import patronOro from "@/assets/patron-oro.webp";
 
 const SEEN_KEY = "boda-sobre-visto";
 
@@ -107,11 +108,12 @@ export default function Page() {
           </a>
         </section>
 
-        <section id="evento" className="bg-bosque px-6 py-24 text-marfil">
-          <div className="mx-auto max-w-3xl text-center">
+        <section id="evento" className="relative bg-bosque px-6 py-24 text-marfil">
+          <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.28]" style={{ backgroundImage: `url(${patronOro.src})`, backgroundSize: "400px auto" }} />
+          <div className="relative mx-auto max-w-3xl text-center">
             <h2 className="font-display text-5xl sm:text-6xl">El gran día</h2>
             <EventMap />
-            <p className="mt-12 text-sm text-marfil/60">Muy pronto: cronograma, confirmación de asistencia y más.</p>
+            
           </div>
         </section>
 
