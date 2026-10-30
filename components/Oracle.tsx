@@ -255,7 +255,7 @@ export default function Oracle() {
           <div className="relative flex min-h-dvh flex-col items-center justify-center px-6 py-14" style={{ animation: "oracle-in 1.6s ease-out 1.8s both" }}>
             <Eye className="h-10 w-16" />
             <h2 className="mt-3 text-balance font-display text-5xl text-champan">{o.title}</h2>
-            <p className="mt-2 font-display text-2xl text-champan/80">{o.sub}</p>
+            <p className="mt-5 font-display text-2xl text-champan/80">{o.sub}</p>
             <p className="mt-7 max-w-xs text-base text-[#f3eddc]/80">{o.intro}</p>
 
             <div className="mt-6">
