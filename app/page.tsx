@@ -112,7 +112,7 @@ export default function Page() {
             <div className="mt-12 grid gap-10 sm:grid-cols-2">
               <div>
                 <p className="font-display text-2xl text-champan">Ceremonia · 18:30 h</p>
-                <p className="mt-2 font-display text-2xl sm:text-3xl">Iglesia de Santiago el Mayor</p>
+                <p className="mx-auto mt-2 max-w-[18rem] text-balance font-display text-2xl sm:max-w-none sm:text-3xl">Parroquia Santiago el Mayor de Toledo</p>
                 <p className="mt-1 text-marfil/75">Plaza de Santiago del Arrabal, Toledo</p>
               </div>
               <div>

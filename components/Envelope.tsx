@@ -209,7 +209,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
                 <RibbonFrame className="absolute inset-[3%] size-[94%]" width={2.6} margin={3} top={3} amp={2.6} />
 
                 <div className="relative flex size-full flex-col items-center justify-center text-center">
-                  <p className="font-display text-[1rem] leading-none text-oliva sm:text-[1.3rem]">nos casamos</p>
+                  <p className="font-display text-[1.25rem] leading-none text-oliva sm:text-[1.6rem]">Nos casamos</p>
                   <p className="mt-0.5 font-display text-[1.8rem] leading-[1.15] text-bosque sm:text-[2.6rem]">
                     Diego <span className="text-burdeos">&amp;</span> Elena
                   </p>
