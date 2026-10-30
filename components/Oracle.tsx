@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "@/lib/i18n";
 
 // Iconos decorativos de la ruleta; la predicción sale de un mazo aleatorio.
-const ICONS = ["🔮", "🧀", "🐱", "🥙", "🥂", "💃", "🪩", "🧅", "🍤", "📸", "🌙", "🕺", "⭐", "🪑"];
+const ICONS = Array.from({ length: 14 }, () => "🔮");
 const SEG = 360 / ICONS.length;
 const SPIN_MS = 4400;
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
