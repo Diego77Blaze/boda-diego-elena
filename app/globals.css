@@ -59,3 +59,18 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .twinkle, .eye-glow { animation: none !important; }
 }
+
+@keyframes night-in {
+  0% { opacity: 0; filter: brightness(2.2) saturate(0.4); }
+  100% { opacity: 1; filter: none; }
+}
+
+@keyframes night-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes star-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
