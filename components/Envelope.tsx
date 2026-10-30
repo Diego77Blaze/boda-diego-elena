@@ -86,10 +86,7 @@ function Seal({ half }: { half?: "l" | "r" }) {
       </g>
       <image
         href={sello.src}
-        x="21"
-        y="21"
-        width="58"
-        height="58"
+        x="17" y="17" width="66" height="66"
         style={{ filter: "drop-shadow(0.8px 1px 0 rgba(233,174,185,0.45)) drop-shadow(-0.4px -0.5px 0 rgba(20,5,10,0.5))", opacity: 0.9 }}
       />
     </svg>
@@ -260,7 +257,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
               </svg>
             </div>
 
-            <div data-shell className="absolute left-1/2 top-[58%] z-[5] aspect-square w-[19%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_4px_5px_rgba(30,8,14,0.5)]">
+            <div data-shell className="absolute left-1/2 top-[58%] z-[5] aspect-square w-[23%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_4px_5px_rgba(30,8,14,0.5)]">
               <div className="size-full animate-[sealPulse_3s_ease-in-out_infinite]">
                 <div ref={sealL} className="absolute inset-0">
                   <Seal half="l" />
