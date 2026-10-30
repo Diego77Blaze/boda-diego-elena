@@ -6,6 +6,7 @@ import Envelope from "@/components/Envelope";
 import Countdown from "@/components/Countdown";
 import ToledoDraw, { type ToledoHandle } from "@/components/ToledoDraw";
 import { RibbonFrame } from "@/components/Ribbon";
+import EventMap from "@/components/EventMap";
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 import pareja from "@/assets/pareja.webp";
 import anillos from "@/assets/anillos.webp";
@@ -109,19 +110,8 @@ export default function Page() {
         <section id="evento" className="bg-bosque px-6 py-24 text-marfil">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="font-display text-5xl sm:text-6xl">El gran día</h2>
-            <div className="mt-12 grid gap-10 sm:grid-cols-2">
-              <div>
-                <p className="font-display text-2xl text-champan">Ceremonia · 18:30 h</p>
-                <p className="mx-auto mt-2 max-w-[18rem] text-balance font-display text-2xl sm:max-w-none sm:text-3xl">Parroquia Santiago el Mayor de Toledo</p>
-                <p className="mt-1 text-marfil/75">Plaza de Santiago del Arrabal, Toledo</p>
-              </div>
-              <div>
-                <p className="font-display text-2xl text-champan">Celebración</p>
-                <p className="mt-2 font-display text-2xl sm:text-3xl">Cigarral de las Mercedes</p>
-                <p className="mt-1 text-marfil/75">Carretera de Piedrabuena, 72, Toledo</p>
-              </div>
-            </div>
-            <p className="mt-12 text-sm text-marfil/60">Muy pronto: cronograma, mapa, confirmación de asistencia y más.</p>
+            <EventMap />
+            <p className="mt-12 text-sm text-marfil/60">Muy pronto: cronograma, confirmación de asistencia y más.</p>
           </div>
         </section>
 
