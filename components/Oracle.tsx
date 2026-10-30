@@ -351,7 +351,7 @@ export default function Oracle() {
                   )}
                   {text.includes("🍊") && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={`${BASE}/shinchan.png`} alt="" className="h-48 w-auto rounded-2xl border border-champan/50" />
+                    <img src={`${BASE}/shinchan.gif`} alt="" className="h-48 w-auto rounded-2xl border border-champan/50" />
                   )}
                   {text.includes("👰") && (
                     // eslint-disable-next-line @next/next/no-img-element
