@@ -79,7 +79,7 @@ export default function PartyMode({ active }: { active: boolean }) {
       <canvas ref={canvas} aria-hidden className={`pointer-events-none fixed inset-0 z-[60] h-full w-full ${active ? "" : "hidden"}`} />
       <div role="status" aria-live="polite" className="sr-only">{active ? t.party.cheer : ""}</div>
       {active && (
-        <div aria-hidden className="pointer-events-none fixed inset-x-0 top-1/3 z-[61] px-6 text-center font-display text-4xl text-burdeos [text-shadow:0_2px_0_#F7F3EA,0_0_18px_#F7F3EA] animate-[party-pop_4s_ease-out_forwards] sm:text-6xl">
+        <div aria-hidden className="pointer-events-none fixed inset-x-0 top-[46%] z-[61] px-6 text-center font-display text-4xl text-burdeos [text-shadow:0_2px_0_#F7F3EA,0_0_18px_#F7F3EA] animate-[party-pop_4s_ease-out_forwards] sm:text-6xl">
           {t.party.cheer}
         </div>
       )}
