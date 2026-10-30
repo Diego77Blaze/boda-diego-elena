@@ -3,10 +3,20 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLang } from "@/lib/i18n";
 
-// Un icono por predicción, en el mismo orden que `oracle.predictions`.
-const ICONS = ["🍤", "💃", "😭", "🌅", "📸", "🔋", "🕺", "🥂", "👵", "😂", "🍽️", "🪑", "🪩", "🤳"];
+// Iconos decorativos de la ruleta; la predicción sale de un mazo aleatorio.
+const ICONS = ["🔮", "🧀", "🐱", "🥙", "🥂", "💃", "🪩", "🧅", "🍤", "📸", "🌙", "🕺", "⭐", "🪑"];
 const SEG = 360 / ICONS.length;
 const SPIN_MS = 4400;
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+function shuffled(n: number) {
+  const a = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 function Eye({ className }: { className?: string }) {
   return (
@@ -75,6 +85,9 @@ export default function Oracle() {
   const [rotation, setRotation] = useState(0);
   const [n, setN] = useState(0);
   const last = useRef(-1);
+  const bag = useRef<number[]>([]);
+  const song = useRef<HTMLAudioElement>(null);
+  const fade = useRef<ReturnType<typeof setInterval> | null>(null);
   const rot = useRef(0);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -97,11 +110,39 @@ export default function Oracle() {
     timers.current.push(setTimeout(fn, ms));
   };
 
+  const fadeTo = (target: number, ms: number, done?: () => void) => {
+    const a = song.current;
+    if (!a) return;
+    if (fade.current) clearInterval(fade.current);
+    const from = a.volume;
+    const t0 = performance.now();
+    fade.current = setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / ms);
+      a.volume = from + (target - from) * k;
+      if (k >= 1) {
+        if (fade.current) clearInterval(fade.current);
+        done?.();
+      }
+    }, 50);
+  };
+
+  const start = () => {
+    document.querySelectorAll("audio").forEach((el) => el !== song.current && el.pause());
+    const a = song.current;
+    if (a) {
+      a.volume = 0;
+      a.currentTime = 0;
+      void a.play().then(() => fadeTo(0.8, 3000)).catch(() => {});
+    }
+    setOpen(true);
+  };
+
   const close = () => {
     if (closing) return;
     timers.current.forEach(clearTimeout);
     timers.current = [];
     setClosing(true);
+    fadeTo(0, 900, () => song.current?.pause());
     later(() => {
       setOpen(false);
       setClosing(false);
@@ -123,16 +164,23 @@ export default function Oracle() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, closing]);
 
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  useEffect(() => () => {
+    timers.current.forEach(clearTimeout);
+    if (fade.current) clearInterval(fade.current);
+  }, []);
 
   const spin = () => {
     if (spinning) return;
     const count = o.predictions.length;
-    let i = Math.floor(Math.random() * count);
-    if (i === last.current) i = (i + 1) % count;
+    if (bag.current.length === 0) {
+      bag.current = shuffled(count);
+      if (bag.current[bag.current.length - 1] === last.current) bag.current.reverse();
+    }
+    const i = bag.current.pop()!;
     last.current = i;
+    const wedge = Math.floor(Math.random() * ICONS.length);
     const jitter = (Math.random() - 0.5) * SEG * 0.6;
-    const delta = (((-(i * SEG) - jitter - rot.current) % 360) + 360) % 360;
+    const delta = (((-(wedge * SEG) - jitter - rot.current) % 360) + 360) % 360;
     rot.current += 360 * 5 + delta;
     setText(null);
     setSpinning(true);
@@ -146,9 +194,10 @@ export default function Oracle() {
 
   return (
     <>
+      <audio ref={song} src={`${BASE}/santuario.mp3`} loop preload="none" />
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={start}
         aria-label={o.open}
         title={o.open}
         className="eye-glow fixed bottom-4 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full border-2 border-champan bg-[#0d0f2b] shadow-lg transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-burdeos"
@@ -199,8 +248,9 @@ export default function Oracle() {
 
           <div className="relative flex min-h-dvh flex-col items-center justify-center px-6 py-14" style={{ animation: "oracle-in 1.6s ease-out 1.8s both" }}>
             <Eye className="h-10 w-16" />
-            <h2 className="mt-3 text-balance font-display text-4xl text-champan sm:text-5xl">{o.title}</h2>
-            <p className="mt-2 max-w-xs text-base text-[#f3eddc]/80">{o.intro}</p>
+            <h2 className="mt-3 text-balance font-display text-5xl text-champan">{o.title}</h2>
+            <p className="mt-2 font-display text-2xl text-champan/80">{o.sub}</p>
+            <p className="mt-7 max-w-xs text-base text-[#f3eddc]/80">{o.intro}</p>
 
             <div className="mt-6">
               <Wheel rotation={rotation} spinning={spinning} />
