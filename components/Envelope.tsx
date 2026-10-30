@@ -176,8 +176,8 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
       <Defs />
       <div aria-hidden className="pointer-events-none absolute inset-0" style={{ backgroundImage: "var(--patron)", backgroundSize: "480px auto", maskImage: "radial-gradient(circle at 100% 0, transparent 19rem, #000 23rem), radial-gradient(circle at 0 100%, transparent 19rem, #000 23rem)", maskComposite: "intersect", WebkitMaskImage: "radial-gradient(circle at 100% 0, transparent 19rem, #000 23rem), radial-gradient(circle at 0 100%, transparent 19rem, #000 23rem)", WebkitMaskComposite: "source-in" }} />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,#FBF8F1_0%,transparent_55%,rgba(199,173,133,0.32)_100%)]" />
-      <OliveBranch className="pointer-events-none absolute -bottom-10 -left-10 w-40 opacity-80 sm:w-56" rotate={20} />
-      <OliveBranch className="pointer-events-none absolute -right-10 -top-10 w-40 opacity-80 sm:w-56" rotate={200} />
+      <OliveBranch className="pointer-events-none       absolute -bottom-8 -left-10 w-28 opacity-80 sm:-bottom-10 sm:w-56" rotate={20} />
+            <OliveBranch className="pointer-events-none absolute -right-10 -top-8 w-28 opacity-80 sm:-top-10 sm:w-56" rotate={200} />
 
       <p className="relative mb-12 text-center font-display text-[1.45rem] leading-tight text-oliva sm:text-3xl">Diego &amp; Elena · 31.07.2027</p>
 
