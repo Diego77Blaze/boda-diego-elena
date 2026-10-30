@@ -6,7 +6,7 @@ create table if not exists public.admins (email text primary key);
 alter table public.admins enable row level security;
 revoke all on public.admins from anon, authenticated;
 
-insert into public.admins (email) values (lower('TU_EMAIL'))
+insert into public.admins (email) values (lower('diegoortizm77@gmail.com'))
 on conflict do nothing;
 
 create or replace function public.es_admin()

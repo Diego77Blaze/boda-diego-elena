@@ -5,6 +5,17 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 export type Lang = "es" | "en";
 
 const es = {
+  secrets: {
+    hint: (n: number) => `Toledo guarda 3 secretos… toca los monumentos (${n}/3)`,
+    found: "Símbolo encontrado",
+    close: "Cerrar",
+    done: "¡Los tres símbolos! Ya conocéis Toledo casi tan bien como nosotros.",
+    sites: {
+      catedral: { name: "La Catedral", symbol: "⛪", text: "La Catedral Primada tardó casi 270 años en construirse (1226-1493). Nosotros prometemos que la boda no se hace tan larga." },
+      alcazar: { name: "El Alcázar", symbol: "🏰", text: "Corona el punto más alto de la ciudad. Carlos V lo convirtió en palacio, y desde aquí arriba se ve todo Toledo." },
+      puente: { name: "El puente de Alcántara", symbol: "🌉", text: "«Alcántara» viene del árabe al-qantara: «el puente». Así que se llama, literalmente, «puente del puente»." },
+    },
+  },
   langLabel: "Idioma",
   hero: {
     marry: "Nos casamos",
@@ -113,6 +124,17 @@ const es = {
 type Dict = typeof es;
 
 const en: Dict = {
+  secrets: {
+    hint: (n: number) => `Toledo hides 3 secrets… tap the landmarks (${n}/3)`,
+    found: "Symbol found",
+    close: "Close",
+    done: "All three symbols! You now know Toledo almost as well as we do.",
+    sites: {
+      catedral: { name: "The Cathedral", symbol: "⛪", text: "The Primate Cathedral took almost 270 years to build (1226-1493). We promise the wedding won't take that long." },
+      alcazar: { name: "The Alcázar", symbol: "🏰", text: "It crowns the highest point of the city. Charles V turned it into a palace, and from up here you can see all of Toledo." },
+      puente: { name: "Alcántara Bridge", symbol: "🌉", text: "“Alcántara” comes from the Arabic al-qantara: “the bridge”. So it's literally called “the bridge bridge”." },
+    },
+  },
   langLabel: "Language",
   hero: {
     marry: "We're getting married",

@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import Envelope from "@/components/Envelope";
 import Countdown from "@/components/Countdown";
 import ToledoDraw, { type ToledoHandle } from "@/components/ToledoDraw";
+import ToledoSecrets from "@/components/ToledoSecrets";
 import { RibbonFrame } from "@/components/Ribbon";
 import EventMap from "@/components/EventMap";
 import RsvpForm from "@/components/RsvpForm";
@@ -123,12 +124,14 @@ export default function Page() {
           </motion.div>
 
           <motion.div {...fade(0.7)} className="relative z-10 mt-12 mb-14 w-full max-w-3xl">
-            {reduce ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={`${BASE}/toledo.webp`} alt={t.hero.toledoAlt} width={960} height={606} className="h-auto w-full" />
-            ) : (
-              <ToledoDraw ref={toledo} className="h-auto w-full" />
-            )}
+            <ToledoSecrets>
+              {reduce ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={`${BASE}/toledo.webp`} alt={t.hero.toledoAlt} width={960} height={606} className="h-auto w-full" />
+              ) : (
+                <ToledoDraw ref={toledo} className="h-auto w-full" />
+              )}
+            </ToledoSecrets>
           </motion.div>
         </section>
 
