@@ -27,5 +27,5 @@ Nota: GitHub Pages es solo hosting estático; el RSVP, la base de datos y el pan
 4. Local: copia `.env.example` a `.env.local` y rellénalo.
 5. GitHub: Settings > Secrets and variables > Actions > **Variables**: `SUPABASE_URL` y `SUPABASE_ANON_KEY`.
 
-Las tablas no son accesibles con la clave pública: solo se puede enviar una respuesta mediante la función `enviar_rsvp`. Las respuestas se consultan en el panel de Supabase (vista `rsvp_resumen`).
+Las tablas no son accesibles con la clave pública: solo se puede enviar una respuesta mediante la función `enviar_rsvp`. Las respuestas se consultan en el panel de Supabase (vistas `rsvp_resumen` por persona y `rsvp_totales` con recuentos de adultos, menores, menús infantiles y alergias).
 

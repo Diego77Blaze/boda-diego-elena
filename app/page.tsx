@@ -8,6 +8,8 @@ import Countdown from "@/components/Countdown";
 import ToledoDraw, { type ToledoHandle } from "@/components/ToledoDraw";
 import { RibbonFrame } from "@/components/Ribbon";
 import EventMap from "@/components/EventMap";
+import RsvpForm from "@/components/RsvpForm";
+import { useLang } from "@/lib/i18n";
 import pareja from "@/assets/pareja.webp";
 import anillos from "@/assets/anillos.webp";
 import patronOro from "@/assets/patron-oro.webp";
@@ -18,6 +20,7 @@ const SEEN_KEY = "boda-sobre-visto";
 
 export default function Page() {
   const reduce = useReducedMotion();
+  const { t } = useLang();
   const [envelope, setEnvelope] = useState<boolean | null>(null);
   const [revealed, setRevealed] = useState(false);
   const toledo = useRef<ToledoHandle>(null);
@@ -99,7 +102,7 @@ export default function Page() {
 
 
           <motion.p {...fade(0.1)} className="mt-14 font-display text-2xl text-oliva sm:mt-12">
-            Nos casamos
+            {t.hero.marry}
           </motion.p>
           <motion.h1 {...fade(0.25)} className="mt-4 text-center font-display leading-[0.85] text-bosque">
             <span className="block text-[clamp(3.6rem,17vw,8rem)]">Diego</span>
@@ -110,20 +113,20 @@ export default function Page() {
             <div className="relative mx-auto w-fit px-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={anillos.src} alt="" aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 w-[13.5rem] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-[0.16] sm:w-[18rem]" />
-              <p className="relative font-display text-2xl text-bosque/80 sm:text-3xl">Sábado</p>
-              <p className="relative font-display text-[1.9rem] leading-tight sm:text-5xl">31 de julio de 2027</p>
+              <p className="relative font-display text-2xl text-bosque/80 sm:text-3xl">{t.hero.weekday}</p>
+              <p className="relative font-display text-[1.9rem] leading-tight sm:text-5xl">{t.hero.date}</p>
             </div>
-            <p className="mt-3 font-display text-2xl text-burdeos">Toledo</p>
+            <p className="mt-3 font-display text-2xl text-burdeos">{t.hero.city}</p>
             <div className="mx-auto mt-10 max-w-[17rem] font-display text-lg text-bosque/85 sm:max-w-sm">
-              <p>Gracias por estar aquí.</p>
-              <p className="mt-4 text-balance">Será un día muy especial y no sería lo mismo sin vosotros.</p>
+              <p>{t.hero.thanks1}</p>
+              <p className="mt-4 text-balance">{t.hero.thanks2}</p>
             </div>
           </motion.div>
 
           <motion.div {...fade(0.7)} className="relative z-10 mt-12 mb-14 w-full max-w-3xl">
             {reduce ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={`${BASE}/toledo.webp`} alt="Dibujo de Toledo con el Alcázar, la catedral y el puente de Alcántara" width={960} height={606} className="h-auto w-full" />
+              <img src={`${BASE}/toledo.webp`} alt={t.hero.toledoAlt} width={960} height={606} className="h-auto w-full" />
             ) : (
               <ToledoDraw ref={toledo} className="h-auto w-full" />
             )}
@@ -131,30 +134,32 @@ export default function Page() {
         </section>
 
         <section className="bg-marfil px-6 py-20 text-center">
-          <p className="mb-8 font-display text-3xl text-oliva">Falta muy poco</p>
+          <p className="mb-8 font-display text-3xl text-oliva">{t.countdown.title}</p>
           <Countdown />
           <a
             href="#evento"
             className="mt-12 inline-block rounded-full bg-burdeos whitespace-nowrap px-7 py-3 font-display text-xl sm:text-2xl text-marfil shadow-sm transition hover:bg-burdeos/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-burdeos"
           >
-            Descubre nuestro gran día
+            {t.countdown.cta}
           </a>
         </section>
 
         <section id="evento" className="relative bg-bosque px-6 py-24 text-marfil">
           <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.28]" style={{ backgroundImage: `url(${patronOro.src})`, backgroundSize: "400px auto" }} />
           <div className="relative mx-auto max-w-3xl text-center">
-            <h2 className="font-display text-5xl sm:text-6xl">El gran día</h2>
+            <h2 className="font-display text-5xl sm:text-6xl">{t.event.title}</h2>
             <EventMap />
             
           </div>
         </section>
 
+        <RsvpForm />
+
         <footer className="bg-marfil px-6 pb-10 pt-14 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={pareja.src}
-            alt="Diego + Elena, 31.07.2027"
+            alt={t.footer.coupleAlt}
             width={700}
             height={700}
             onClick={tapHeart}
@@ -165,7 +170,7 @@ export default function Page() {
             onClick={replay}
             className="mt-8 font-display text-xl text-oliva underline decoration-champan decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-burdeos"
           >
-            Volver a abrir el sobre
+            {t.footer.reopen}
           </button>
         </footer>
       </main>

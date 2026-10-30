@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useMotionValue, useSpring } from "motion/react";
 import OliveBranch from "./OliveBranch";
 import { RibbonFrame } from "./Ribbon";
+import { useLang } from "@/lib/i18n";
 
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 import sello from "@/assets/logo-sello.webp";
@@ -94,6 +95,7 @@ function Seal({ half }: { half?: "l" | "r" }) {
 }
 
 export default function Envelope({ onOpened }: { onOpened: () => void }) {
+  const { t } = useLang();
   const [busy, setBusy] = useState(false);
   const [gone, setGone] = useState(false);
   const root = useRef<HTMLDivElement>(null);
@@ -182,7 +184,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
       <button
         type="button"
         onClick={open}
-        aria-label="Abrir la invitación de boda de Diego y Elena"
+        aria-label={t.envelope.openAria}
         className="relative cursor-pointer select-none outline-none [perspective:1600px] focus-visible:ring-2 focus-visible:ring-burdeos focus-visible:ring-offset-8 focus-visible:ring-offset-marfil"
       >
         <motion.div style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
@@ -209,7 +211,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
                 <RibbonFrame className="absolute inset-[3%] size-[94%]" width={2.6} margin={3} top={3} amp={2.6} />
 
                 <div className="relative flex size-full flex-col items-center justify-center text-center">
-                  <p className="font-display text-[1.25rem] leading-none text-oliva sm:text-[1.6rem]">Nos casamos</p>
+                  <p className="font-display text-[1.25rem] leading-none text-oliva sm:text-[1.6rem]">{t.envelope.marry}</p>
                   <p className="mt-0.5 font-display text-[1.8rem] leading-[1.15] text-bosque sm:text-[2.6rem]">
                     Diego <span className="text-burdeos">&amp;</span> Elena
                   </p>
@@ -284,7 +286,7 @@ export default function Envelope({ onOpened }: { onOpened: () => void }) {
       </button>
 
       <p ref={hint} className="relative mt-14 max-w-[18rem] text-balance text-center font-display text-[1.35rem] leading-snug text-oliva sm:max-w-none sm:text-2xl">
-        <span className="inline-block animate-[hintFade_3s_ease-in-out_infinite]">Pulsa para abrir nuestra invitación</span>
+        <span className="inline-block animate-[hintFade_3s_ease-in-out_infinite]">{t.envelope.hint}</span>
       </p>
 
       <style>{`

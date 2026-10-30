@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLang } from "@/lib/i18n";
 
 const COLORS = ["#C7AD85", "#702D3C", "#777D56", "#354A3C", "#E8D9B8", "#B5566B"];
 
 type Piece = { x: number; y: number; w: number; h: number; vx: number; vy: number; r: number; vr: number; c: string; round: boolean };
 
 export default function PartyMode({ active }: { active: boolean }) {
+  const { t } = useLang();
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -75,10 +77,10 @@ export default function PartyMode({ active }: { active: boolean }) {
   return (
     <>
       <canvas ref={canvas} aria-hidden className={`pointer-events-none fixed inset-0 z-[60] h-full w-full ${active ? "" : "hidden"}`} />
-      <div role="status" aria-live="polite" className="sr-only">{active ? "¡Vivan los novios!" : ""}</div>
+      <div role="status" aria-live="polite" className="sr-only">{active ? t.party.cheer : ""}</div>
       {active && (
         <div aria-hidden className="pointer-events-none fixed inset-x-0 top-1/3 z-[61] px-6 text-center font-display text-4xl text-burdeos [text-shadow:0_2px_0_#F7F3EA,0_0_18px_#F7F3EA] animate-[party-pop_4s_ease-out_forwards] sm:text-6xl">
-          ¡Vivan los novios!
+          {t.party.cheer}
         </div>
       )}
     </>

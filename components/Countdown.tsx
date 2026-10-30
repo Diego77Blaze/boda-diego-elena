@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 // 31 de julio de 2027, 18:30 en Toledo (CEST, UTC+2)
 const TARGET = Date.parse("2027-07-31T18:30:00+02:00");
@@ -17,6 +18,7 @@ function diff(now: number) {
 }
 
 export default function Countdown() {
+  const lt = useLang().t.countdown;
   const [t, setT] = useState<ReturnType<typeof diff> | null>(null);
 
   useEffect(() => {
@@ -28,19 +30,19 @@ export default function Countdown() {
 
   if (t?.done) {
     return (
-      <p className="font-display text-4xl text-burdeos text-center">¡Hoy es el gran día! Nos vemos en Toledo.</p>
+      <p className="font-display text-4xl text-burdeos text-center">{lt.today}</p>
     );
   }
 
   const cells = [
-    ["días", t?.d],
-    ["horas", t?.h],
-    ["minutos", t?.m],
-    ["segundos", t?.s],
+    [lt.days, t?.d],
+    [lt.hours, t?.h],
+    [lt.minutes, t?.m],
+    [lt.seconds, t?.s],
   ] as const;
 
   return (
-    <div role="timer" aria-label="Cuenta atrás hasta la boda" className="flex items-start justify-center gap-1.5 sm:gap-6">
+    <div role="timer" aria-label={lt.aria} className="flex items-start justify-center gap-1.5 sm:gap-6">
       {cells.map(([label, v], i) => (
         <div key={label} className="flex items-start gap-1.5 sm:gap-6">
           <div className="text-center min-w-[3.6rem] sm:min-w-20">
