@@ -23,7 +23,7 @@ export default function EventMap() {
   const [active, setActive] = useState(0);
   const place = PLACES[active];
   const labels = [t.event.ceremony, t.event.celebration];
-  const names = [t.event.ceremonyName, place.name];
+  const names = [t.event.ceremonyName, PLACES[1].name];
   const q = encodeURIComponent(place.query);
 
   return (
