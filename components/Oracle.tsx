@@ -193,8 +193,37 @@ export default function Oracle() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isKebab]);
 
+  const shin = useRef<HTMLAudioElement>(null);
+  const isShin = !closing && !spinning && !!text && text.includes("🍊");
+
+  useEffect(() => {
+    const s = shin.current;
+    if (!s) return;
+    let stop: ReturnType<typeof setTimeout> | undefined;
+    if (isShin) {
+      s.currentTime = 2;
+      s.volume = 1;
+      void s.play().catch(() => {});
+      if (song.current) song.current.volume = 0.15;
+      stop = setTimeout(() => {
+        s.pause();
+        fadeTo(0.8, 800);
+      }, 2000);
+    }
+    return () => {
+      if (stop) clearTimeout(stop);
+      s.pause();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isShin]);
+
   const spin = () => {
     if (spinning) return;
+    const s = shin.current;
+    if (s && s.paused) {
+      s.muted = true;
+      void s.play().then(() => { s.pause(); s.muted = false; }).catch(() => { s.muted = false; });
+    }
     const k = kebab.current;
     if (k && k.paused) {
       k.muted = true;
@@ -225,6 +254,7 @@ export default function Oracle() {
     <>
       <audio ref={song} src={`${BASE}/santuario.mp3`} loop preload="none" />
       <audio ref={kebab} src={`${BASE}/avengers.mp3`} preload="none" />
+      <audio ref={shin} src={`${BASE}/shinchan.mp3`} preload="none" />
       <button
         type="button"
         onClick={start}
@@ -299,6 +329,10 @@ export default function Oracle() {
                   {text.toLowerCase().includes("kebab") && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={`${BASE}/kebab.jpg`} alt="" className="h-56 w-auto rounded-2xl border border-champan/50" />
+                  )}
+                  {text.includes("🍊") && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={`${BASE}/shinchan.png`} alt="" className="h-48 w-auto rounded-2xl border border-champan/50" />
                   )}
                   {text.includes("👰") && (
                     // eslint-disable-next-line @next/next/no-img-element
