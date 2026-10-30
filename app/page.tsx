@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import PartyMode from "@/components/PartyMode";
 import { motion, useReducedMotion } from "motion/react";
 import Envelope from "@/components/Envelope";
 import Countdown from "@/components/Countdown";
@@ -41,6 +42,21 @@ export default function Page() {
     sessionStorage.setItem(SEEN_KEY, "1");
     setEnvelope(false);
     setRevealed(true);
+  };
+
+  const [party, setParty] = useState(false);
+  const taps = useRef({ n: 0, last: 0 });
+  const endParty = useCallback(() => setParty(false), []);
+  const tapHeart = () => {
+    const now = Date.now();
+    const t = taps.current;
+    t.n = now - t.last < 900 ? t.n + 1 : 1;
+    t.last = now;
+    if (t.n >= 3) {
+      t.n = 0;
+      setParty(false);
+      requestAnimationFrame(() => setParty(true));
+    }
   };
 
   const replay = () => {
@@ -119,7 +135,14 @@ export default function Page() {
 
         <footer className="bg-marfil px-6 pb-10 pt-14 text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={pareja.src} alt="Diego + Elena, 31.07.2027" width={700} height={700} className="mx-auto h-auto w-56 sm:w-72" />
+          <img
+            src={pareja.src}
+            alt="Diego + Elena, 31.07.2027"
+            width={700}
+            height={700}
+            onClick={tapHeart}
+            className="mx-auto h-auto w-56 cursor-pointer select-none sm:w-72"
+          />
           <button
             type="button"
             onClick={replay}
@@ -129,6 +152,7 @@ export default function Page() {
           </button>
         </footer>
       </main>
+      <PartyMode active={party} onEnd={endParty} />
     </>
   );
 }
